@@ -19,3 +19,5 @@
 3. drag sessons, done
 4. drag lessons, done
 5. change session name, done
+6. remove sesson, done
+7. remove lesson, done
