@@ -65,7 +65,7 @@ const Home = () => {
       <EventDate />
 
       {sessions.map((item, idx) => (
-        <DragWrapper key={item.id}
+        <DragWrapper key={item.sessionId}
           onDragStart={(e) => dragStart(e, idx)}
           onDragEnter={(e) => dragEnter(e, idx)}
           onDragEnd={drop}

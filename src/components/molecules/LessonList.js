@@ -3,7 +3,7 @@ import Text from '../atoms/Text'
 import styled from 'styled-components'
 import { RxDragHandleDots2 } from 'react-icons/rx'
 
-const LessonList = ({ data }) => {
+const LessonList = ({ data, handleRemoveLesson }) => {
   const { title, dateCreated, isDownloadable, duration } = data
   const getHours = (date) => {
     const hours = date.getHours()
@@ -28,7 +28,7 @@ const LessonList = ({ data }) => {
           {!isDownloadable &&
             <Text small iconPrimary={<FaDownload />}>No Download</Text>
           }
-          <Icon>
+          <Icon onClick={handleRemoveLesson}>
             <FaEllipsisV />
           </Icon>
         </Wrapper >

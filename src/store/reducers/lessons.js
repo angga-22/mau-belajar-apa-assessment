@@ -33,8 +33,8 @@ export const lessonSlice = createSlice({
     },
     removeLesson: (state, { payload }) => {
       const findSession = state.sessions.findIndex(item => item.sessionId === payload.sessionId)
-      const findLesson = state.sessions[findSession].findIndex(item => item.lessonId === payload.lessonId)
-      if (findLesson !== -1) state.sessions[findSession].lessons[findLesson].filter(item => item.lessonId !== payload.lessonId)
+      const findLesson = state.sessions[findSession].lessons.findIndex(item => item.lessonId === payload.lessonId)
+      if (findLesson !== -1) state.sessions[findSession].lessons.splice(findLesson, 1)
     },
     onDragSession: (state, { payload }) => {
       state.sessions = payload

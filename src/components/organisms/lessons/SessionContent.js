@@ -7,15 +7,17 @@ import { RxDragHandleDots2 } from 'react-icons/rx'
 import styled from 'styled-components'
 import Button from '../../atoms/Button'
 import { useDispatch } from 'react-redux'
-import { changeSessionName, addLesson, onDragLesson, removeSession } from '../../../store/reducers/lessons'
+import { changeSessionName, addLesson, onDragLesson, removeSession, removeLesson } from '../../../store/reducers/lessons'
 import SessionNameForm from './modals/SessionNameForm'
 import AddLessonForm from './AddLessonForm'
 import RemoveSessionForm from './modals/RemoveSessionForm'
+import RemoveLessonForm from './modals/RemoveLessonForm'
 
 const SessionContent = ({ data }) => {
   const [openModal, setOpenModal] = useState(false)
   const [openLessonForm, setOpenLessonForm] = useState(false)
   const [openRemoveSession, setOpenRemoveSession] = useState(false)
+  const [openRemoveLesson, setOpenRemoveLesson] = useState({ isOpen: false, lessonId: null })
   const [sessionName, setSessionName] = useState('')
   const [lessonName, setLessonName] = useState('')
   const [checked, setChecked] = useState(false)
@@ -89,6 +91,15 @@ const SessionContent = ({ data }) => {
           }}
         />
       }
+      {openRemoveLesson.isOpen &&
+        <RemoveLessonForm
+          onCancel={() => setOpenRemoveLesson(false)}
+          onConfirm={() => {
+            dispatch(removeLesson({ sessionId, lessonId: openRemoveLesson.lessonId }))
+            setOpenRemoveLesson(false)
+          }}
+        />
+      }
       <Wrapper>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <RxDragHandleDots2 style={{ fontSize: '32px' }} />
@@ -104,13 +115,15 @@ const SessionContent = ({ data }) => {
       {data.lessons.length > 0 ?
         data.lessons.map((item, idx) =>
         (
-          <div key={item.id}
+          <div key={item.lessonId}
             onDragStart={(e) => dragStart(e, idx)}
             onDragEnter={(e) => dragEnter(e, idx)}
             onDragEnd={drop}
             draggable
           >
-            <LessonList data={item} />
+            <LessonList data={item}
+              handleRemoveLesson={() => setOpenRemoveLesson({ isOpen: true, lessonId: item.lessonId })}
+            />
           </div>
         )
         )
