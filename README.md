@@ -10,7 +10,8 @@
 2. redux, for state management,
 3. example api call mock data,
 4. redux saga middleware,
-5. drag and drop without library,
+5. drag and drop,
+6. styled components
 
 # Requirements
 
